@@ -1,0 +1,52 @@
+org: ysolis
+service: api-cursos
+
+provider:
+  name: aws
+  runtime: python3.13
+  memorySize: 1024
+  timeout: 20
+  iam:
+    role: arn:aws:iam::311103841159:role/LabRole
+
+functions:
+  listar:
+    handler: ListarCursos.lambda_handler
+    events:
+      - http:
+          path: /cursos/listar
+          method: get
+          cors: true
+          integration: lambda
+  buscar:
+    handler: BuscarCurso.lambda_handler
+    events:
+      - http:
+          path: /cursos/buscar
+          method: post
+          cors: true
+          integration: lambda
+  crear:
+    handler: CrearCurso.lambda_handler
+    events:
+      - http:
+          path: /cursos/crear
+          method: post
+          cors: true
+          integration: lambda
+  modificar:
+    handler: ModificarCurso.lambda_handler
+    events:
+      - http:
+          path: /cursos/modificar
+          method: put
+          cors: true
+          integration: lambda
+  eliminar:
+    handler: EliminarCurso.lambda_handler
+    events:
+      - http:
+          path: /cursos/eliminar
+          method: delete
+          cors: true
+          integration: lambda
